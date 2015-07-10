@@ -1,0 +1,179 @@
+<link rel="import"
+      href="/bower_components/polymer/polymer.html">
+
+<link rel="import"
+      href="/bower_components/paper-shadow/paper-shadow.html">
+
+<link rel="import"
+      href="/bower_components/paper-ripple/paper-ripple.html">
+
+<link rel="import"
+      href="/bower_components/core-icon/core-icon.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/core-icons.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/editor-icons.html">
+
+<link rel="import"
+      href="/bower_components/paper-button/paper-button.html">
+
+<link rel="import"
+      href="/bower_components/paper-slider/paper-slider.html">
+
+<link rel="import"
+      href="/bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import"
+      href="/bower_components/paper-dialog/paper-dialog-transition.html">
+
+<polymer-element name="sync-object-options"
+                 extends="paper-dialog"
+                 attributes="syncObjectList
+                             selected"
+                 transition="paper-dialog-transition-bottom"
+                 backdrop
+                 autoCloseDisabled>
+
+  <template>
+
+    <paper-shadow z="3" fit></paper-shadow>
+
+    <div vertical layout fit>
+
+      <div id="header"
+           horizontal layout>
+
+        <paper-shadow z="1" fit></paper-shadow>
+
+        <core-icon icon="{{selected.isFolder ? 'folder' : 'editor:insert-drive-file'}}">
+        </core-icon>
+
+        <span id="title" flex>{{selected.name}}</span>
+
+        <paper-icon-button icon="check"
+                           on-tap="{{accept}}">
+        </paper-icon-button>
+
+      </div>
+
+      <div style="margin: 16px 16px 0 16px;"
+           vertical layout>
+
+        <span style="font-size: 14px;">Recursion Depth</span>
+
+        <div horizontal layout>
+
+          <paper-slider min="1"
+                        max="11"
+                        step="1"
+                        value="{{selected.depth}}"
+                        immediateValue="{{recVal}}"
+                        snaps
+                        flex>
+          </paper-slider>
+
+          <span style="width: 80px;
+                       height: 32px;
+                       line-height: 32px;
+                       font-size: 14px;
+                       text-align: center">
+
+            {{recVal < 11 ? recVal : "Unlimited"}}
+
+          </span>
+
+        </div>
+
+      </div>
+
+      <paper-button on-tap="{{setSyncLocation}}"
+                    raised>
+
+        {{selected.syncLocationID ? "change" : "set"}} sync location
+
+      </paper-button>
+
+    </div>
+
+    <style>
+
+      :host{
+
+        width: 300px;
+
+        height: 160px;
+
+        padding: 16px;
+
+      }
+
+      paper-button{
+
+        margin: 16px;
+
+      }
+
+      paper-shadow{
+
+        pointer-events: none;
+
+      }
+
+      core-icon{
+
+        margin: 12px;
+
+        pointer-events: none;
+
+        opacity: 0.54;
+
+      }
+
+      paper-icon-button{
+
+        margin: 4px;
+
+        width: 24px;
+
+        height: 24px;
+
+        opacity: 0.54;
+
+      }
+
+      .action-button{
+
+        position: relative;
+
+      }
+
+      #header{
+
+        position: relative;
+
+        height: 48px;
+
+      }
+
+      #title{
+
+        line-height: 48px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+
+      }
+
+    </style>
+
+  </template>
+
+  <script src="sync-object-options.js"></script>
+
+</polymer-element>

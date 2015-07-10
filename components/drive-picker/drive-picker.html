@@ -1,0 +1,228 @@
+<link rel="import"
+      href="/bower_components/polymer/polymer.html">
+
+<link rel="import"
+      href="/bower_components/core-ajax/core-ajax.html">
+
+<link rel="import"
+      href="/bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import"
+      href="/bower_components/paper-dialog/paper-dialog-transition.html">
+
+<link rel="import"
+      href="/bower_components/core-icon/core-icon.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/core-icons.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/editor-icons.html">
+
+<link rel="import"
+      href="/bower_components/paper-shadow/paper-shadow.html">
+
+<link rel="import"
+      href="/bower_components/paper-ripple/paper-ripple.html">
+
+<link rel="import"
+      href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import"
+      href="/bower_components/paper-spinner/paper-spinner.html">
+
+<polymer-element name="drive-picker"
+                 extends="paper-dialog"
+                 attributes="selected"
+                 transition="paper-dialog-transition-bottom"
+                 backdrop
+                 autoCloseDisabled>
+
+  <template>
+
+    <paper-shadow z="3" fit></paper-shadow>
+
+    <core-ajax id="list-entries"
+               url="https://www.googleapis.com/drive/v2/files"
+               handleAs="json"
+               method="GET"
+               loading="{{loading}}"
+               on-core-complete="{{updateEntriesResponse}}">
+    </core-ajax>
+
+    <div vertical layout>
+
+      <div style="height: 48px;
+                  position: relative;
+                  max-width: 300px;"
+           horizontal layout>
+
+        <paper-shadow z="1" fit></paper-shadow>
+
+        <div style="position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    transition: 0.25s;
+                    opacity: {{path[0].id=='root' ? '1' : '0'}};"
+             horizontal layout
+             flex>
+
+          <core-icon src="/assets/product128.png"
+                     style="padding: 4px;
+                            margin: 8px;
+                            opacity: 1;">
+          </core-icon>
+
+          <span style="line-height: 48px;
+                       font-size: 16px;">
+
+            Select Folder
+
+          </span>
+
+          <div flex></div>
+
+          <paper-icon-button on-tap="{{close}}"
+                             icon="close">
+          </paper-icon-button>
+
+        </div>
+
+        <div style="transition: 0.25s;
+                    opacity: {{path[0].id=='root' ? '0' : '1'}};
+                    pointer-events: {{path[0].id=='root' ? 'none' : 'all'}};"
+             horizontal layout
+             flex>
+
+          <paper-icon-button icon="arrow-back"
+                             on-tap="{{backPath}}">
+          </paper-icon-button>
+
+          <span style="line-height: 48px;
+                       font-size: 16px;
+                       overflow: hidden;
+                       text-overflow: ellipsis;
+                       white-space: nowrap;"
+                flex>
+
+            {{path[0].name}}
+
+          </span>
+
+          <paper-icon-button icon="close"
+                             on-tap="{{close}}">
+          </paper-icon-button>
+
+          <paper-icon-button icon="check"
+                             on-tap="{{select}}">
+          </paper-icon-button>
+
+        </div>
+
+      </div>
+
+      <div style="width: 300px;
+                  height: 300px;
+                  overflow-y: scroll;">
+
+        <div vertical layout>
+
+          <template repeat="{{entry in entries}}">
+
+            <div id="{{entry.id}}"
+                 class="entry"
+                 on-tap="{{forwardPath}}"
+                 horizontal layout>
+
+              <paper-ripple fit></paper-ripple>
+
+              <core-icon style="color: {{entry.isFolder ? 'black' : 'blue'}};"
+                         icon="{{entry.isFolder ? 'folder' : 'editor:insert-drive-file'}}">
+              </core-icon>
+
+              <span class="name"
+                    flex>
+
+                {{entry.name}}
+
+              </span>
+
+              <core-icon icon="chevron-right"></core-icon>
+
+            </div>
+
+          </template>
+
+        </div>
+
+        <div style="pointer-events: none;"
+             vertical layout
+             center center-justified
+             fit>
+
+          <paper-spinner active="{{loading}}"></paper-spinner>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <style>
+
+      paper-shadow{
+
+        pointer-events: none;
+
+      }
+
+      core-icon{
+
+        margin: 12px;
+
+        pointer-events: none;
+
+        opacity: 0.54;
+
+      }
+
+      paper-icon-button{
+
+        margin: 4px;
+
+        width: 24px;
+
+        height: 24px;
+
+        opacity: 0.54;
+
+      }
+
+      .entry{
+
+        font-size: 14px;
+
+        position: relative;
+
+      }
+
+      .entry .name{
+
+        line-height: 48px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+      }
+
+    </style>
+
+  </template>
+
+  <script src="drive-picker.js"></script>
+
+</polymer-element>

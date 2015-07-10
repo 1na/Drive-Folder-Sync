@@ -1,0 +1,59 @@
+{
+
+  "manifest_version": 2,
+
+  "name": "Drive Folder Sync",
+
+  "short_name": "Folder Sync",
+
+  "description": "",
+
+  "version": "0.0.1",
+
+  "minimum_chrome_version": "38",
+
+  "icons": {
+
+    "16": "assets/icon_16.png",
+
+    "128": "assets/icon_16.png"
+
+  },
+
+  "permissions": [
+
+    "notifications",
+
+    "identity",
+
+    "storage",
+
+    {"fileSystem": ["write", "retainEntries", "directory"]}
+
+  ],
+
+  "oauth2": {
+
+    "client_id": "724740867869-h89vj4ci2kk60mpq9898jntlrruspgrn.apps.googleusercontent.com",
+
+    "scopes": [
+
+      "https://www.googleapis.com/auth/drive"
+
+    ]
+
+  },
+
+  "app": {
+
+    "background": {
+
+      "scripts": ["background.js"]
+
+    }
+
+  },
+
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtC1vNy4GFbofzrltscNHi4zqnKMdZaDFEtvhiKbTw6zHkyYdacrE7u8BHsU2ZoRwXCCuIeQk+MHQ00mlsMbW53WMsBh0dWDvDfODuF/7QwOX2mZqrAOLmtpbljK6T7zOm8cYY/hQQcQyU/xu6SoTpbLXOg3U9qxA+2w81yBY3kWTtW8y7xH3R5g6svH5qx/SlqxYXk7Kpqyek1ElNn+T77LnskG/emYkoBC3PNc5laOGiSDUtIna0hvb4LoD1ltfV5LI11n/6Cmi2QnJfc6JPeXT6uP7vB6YkiNtrq7Hf0bgnqAj7v3un6jpju5dSiwSY+U99/VYSRYVq1FVYxsD3QIDAQAB"
+
+}

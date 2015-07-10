@@ -1,0 +1,123 @@
+<link rel="import"
+      href="/bower_components/polymer/polymer.html">
+
+<link rel="import"
+      href="/bower_components/core-ajax/core-ajax.html">
+
+<link rel="import"
+      href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/core-icons.html">
+
+<link rel="import"
+      href="/bower_components/core-icons/notification-icons.html">
+
+<polymer-element name="sync-object"
+                 attributes="data
+                             selected
+                             syncObjectList">
+
+  <template>
+
+    <core-ajax id="get-directory-contents"
+               url="https://www.googleapis.com/drive/v2/files"
+               handleAs="json"
+               method="GET"
+               loading="{{loading}}"
+               on-core-complete="{{getDirectoryContentsResponse}}">
+    </core-ajax>
+
+    <core-ajax id="get-file-info"
+               url="https://www.googleapis.com/drive/v2/files/{{downloadFileID}}"
+               handleAs="json"
+               method="GET"
+               loading="{{loading}}"
+               on-core-complete="{{getFileInfoResponse}}">
+    </core-ajax>
+
+    <core-ajax id="download-file"
+               url="{{activeFile.downloadURL}}"
+               handleAs="blob"
+               method="GET"
+               loading="{{loading}}"
+               on-core-complete="{{downloadFileResponse}}">
+    </core-ajax>
+
+    <div style="padding: 4px;"
+         horizontal layout fit>
+
+      <paper-icon-button id="remove"
+                         icon="remove-circle-outline"
+                         on-tap="{{remove}}">
+      </paper-icon-button>
+
+      <div style="margin: 0 8px;"
+           vertical layout justified flex>
+
+        <span class="elipsify">
+
+          {{data.name}}
+
+        </span>
+
+        <span class="elipsify"
+              style="font-size: 12px;
+                     opacity: 0.54;">
+
+          {{data.path}}
+
+        </span>
+
+      </div>
+
+      <paper-icon-button id="options"
+                         icon="settings"
+                         on-tap="{{settings}}">
+      </paper-icon-button>
+
+      <paper-icon-button id="up"
+                         icon="file-upload"
+                         on-tap="{{syncUp}}">
+      </paper-icon-button>
+
+      <paper-icon-button id="down"
+                         icon="file-download"
+                         on-tap="{{syncDown}}">
+      </paper-icon-button>
+
+    </div>
+
+    <style>
+
+      :host{
+
+        position: relative;
+
+        height: 48px;
+
+      }
+
+      paper-icon-button{
+
+        opacity: 0.54;
+
+      }
+
+      .elipsify{
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+      }
+
+    </style>
+
+  </template>
+
+  <script src="sync-object.js"></script>
+
+</polymer-element>
