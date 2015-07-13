@@ -1,115 +1,51 @@
-<link rel="import"
-      href="/bower_components/polymer/polymer.html">
-
-<link rel="import"
-      href="/bower_components/core-ajax/core-ajax.html">
-
-<link rel="import"
-      href="/bower_components/paper-dialog/paper-dialog.html">
-
-<link rel="import"
-      href="/bower_components/paper-dialog/paper-dialog-transition.html">
-
-<link rel="import"
-      href="/bower_components/paper-button/paper-button.html">
-
-<link rel="import"
-      href="/bower_components/paper-fab/paper-fab.html">
-
-<link rel="import"
-      href="/bower_components/paper-toast/paper-toast.html">
-
-<link rel="import"
-      href="drive-picker/drive-picker.html">
-
-<link rel="import"
-      href="sync-object/sync-object-options.html">
-
-<link rel="import"
-      href="sync-object/sync-object.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../core-icons/av-icons.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
 
 <polymer-element name="app-main">
 
   <template>
-
-    <div vertical layout
-         fit>
-
-      <template repeat="{{obj in syncObjectList}}">
-
-        <sync-object data="{{obj}}"
-                     selected="{{selected}}"
-                     syncObjectList="{{syncObjectList}}">
-        </sync-object>
-
-      </template>
-
+    <div vertical layout fit>
+      <template repeat="{{obj in syncObjectList}}"></template>
     </div>
-
-    <paper-dialog id="auth-request-dialog"
-                  heading="Authorization Required"
-                  transition="paper-dialog-transition-bottom"
-                  backdrop
-                  autoCloseDisabled>
-
+    <paper-dialog id="auth-request-dialog" heading="Authorization Required" transition="paper-dialog-transition-bottom" backdrop autoclosedisabled>
       <p>This app requires access to your Google Drive to allow you to sync files and folders.</p>
-
-      <paper-button affirmitive
-                    on-tap="{{getInteractiveAuth}}">
-
+      <paper-button affirmitive on-tap="{{ getInteractiveAuth }}">
         authorize
-
       </paper-button>
-
     </paper-dialog>
-
-    <sync-object-options id="options"
-                         syncObjectList="{{syncObjectList}}"
-                         selected="{{selected}}">
+    <sync-object-options id="options" syncobjectlist selected>
     </sync-object-options>
-
-    <drive-picker id="picker"
-                  selected="{{refObject}}">
+    <drive-picker id="picker" selected>
     </drive-picker>
-
-    <paper-fab icon="add"
-               on-tap="{{addSyncEntry}}">
+    <paper-fab icon="add" on-tap="{{ addSyncEntry }}">
     </paper-fab>
-
-    <paper-toast id="location-toast">
-
+    <paper-toast id="location-toast" touch-action="none" class="core-transition core-transition-bottom">
       Sync location not set. See settings.
-
     </paper-toast>
-
-    <style>
-
-      :host{
-
+    <style>    
+      :host {
         background-color: white;
-
       }
-
-      paper-fab{
-
+      paper-fab {
         position: absolute;
-
         bottom: 20px;
-
         right: 20px;
-
       }
-
-      paper-toast{
-
+      paper-toast {
         width: 150px;
-
       }
-
     </style>
-
   </template>
 
-  <script src="app-main.js"></script>
+  <script>
+
+    Polymer({
+      
+    });
+
+  </script>
 
 </polymer-element>
